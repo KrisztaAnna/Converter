@@ -1,13 +1,12 @@
 package app.mzperx.controller;
 
 import app.mzperx.converter.Converter;
-import app.mzperx.jxltomif.JxlToMifConverter;
-
-import java.io.File;
+import app.mzperx.hmcConverter.TxtParser;
 import java.util.Scanner;
 
 public class ConverterController {
 
+    //Gets path to either input or output file through user input
     private String getPath(String direction){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Path to the " + direction + " file: ");
@@ -15,19 +14,19 @@ public class ConverterController {
         return path;
     }
 
+
     private String getOutputLocation(){
         return getPath("output");
     }
 
-    private File getInputFile(){
-        return new File(getPath("input"));
+    private String getInputLocation(){
+        return getPath("input");
     }
 
     public Converter chooseConverter(){
-        File input = getInputFile();
+        String inputLocation = getInputLocation();
         String outputLocation = getOutputLocation();
-
-        return new JxlToMifConverter(input, outputLocation);
+        return new TxtParser(inputLocation, outputLocation);
     }
 }
 

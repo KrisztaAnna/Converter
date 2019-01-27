@@ -1,25 +1,27 @@
-package app.mzperx.jxltomif;
+package app.mzperx.hmcConverter;
 
 import app.mzperx.converter.Converter;
 
 import java.io.*;
 import java.util.Scanner;
 
-public class JxlToMifConverter implements Converter {
+public class TxtParser implements Converter {
 
-    private File inputFile;
+    private String inputLocation;
     private String outputLocation;
 
-
-    public JxlToMifConverter(File inputFile, String outputLocation){
-        this.inputFile = inputFile;
+    public TxtParser(String inputLocation, String outputLocation){
+        this.inputLocation = inputLocation;
         this.outputLocation = outputLocation;
+    }
 
+    private File getInputFile(){
+        return new File(inputLocation);
     }
 
     public String getContent() {
         try {
-            Scanner scanner = new Scanner(inputFile);
+            Scanner scanner = new Scanner(getInputFile());
             String content = scanner.useDelimiter("\\A").next();
             scanner.close();
             return content;
