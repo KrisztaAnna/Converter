@@ -5,6 +5,7 @@ import java.util.List;
 public class ArchEdContext {
 
     private String name;
+    private String description;
     private List<String> equalTo;
     private List<String> above;
     private List<String> contemporaryWith;
@@ -12,11 +13,13 @@ public class ArchEdContext {
 
 
     public ArchEdContext(String name,
+                         String description,
                          List<String> equalTo,
                          List<String> above,
                          List<String> contemporaryWith,
                          List<String> below){
         this.name = name;
+        this.description = description;
         this.equalTo = equalTo;
         this.above = above;
         this.contemporaryWith = contemporaryWith;

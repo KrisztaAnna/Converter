@@ -21,10 +21,11 @@ public class TextFileParser {
         Matcher matcher = pattern.matcher(content);
 
         while (matcher.find()) {
-            String contextNumber = matcher.group(0);
-            String name = contextNumber.replaceAll("[^0-9]","");
+            String name = matcher.group(0);
+            String contextNumber = name.replaceAll("[^0-9]","");
             ArchEdContext context = new ArchEdContext(contextNumber);
-            System.out.println(name);
+            System.out.println(context.getName());
+
         }
 
     }
