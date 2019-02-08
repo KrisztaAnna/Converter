@@ -29,7 +29,6 @@ public class ArchEdContext {
 
     public ArchEdContext(String name){
         this.name = name;
-
     }
 
     public String getName(){
@@ -37,7 +36,12 @@ public class ArchEdContext {
     }
 
     public String toString(){
-        return "The context number is: " + this.name + ".\n";
+        return "Name: " + this.name + "\n"  +
+                "Description: " + this.description + "\n" +
+                "Equal to: " + this.equalTo + "\n" +
+                "Above: " + this.above + "\n" +
+                "Contemporary with: " + this.contemporaryWith + "\n" +
+                "Below: " + this.below + "\n\n";
     }
 
 

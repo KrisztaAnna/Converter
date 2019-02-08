@@ -1,21 +1,31 @@
 package app.mzperx.hmcConverter;
 
+import app.mzperx.matrices.ArchEdContext;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class TextFileWriter {
     private String outputLocation;
+    List<ArchEdContext> contexts;
 
     public TextFileWriter(String outputLocation){
         this. outputLocation = outputLocation;
     }
 
-    public void writeParsedContent(String content){
+    public void setListOfContexts(List<ArchEdContext> contexts) {
+        this.contexts = contexts;
+    }
+
+    public void contextListToFile(List<ArchEdContext> listOfContexts){
         // write the content in file
-        if (content!=null) {
+        if (listOfContexts!=null) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.outputLocation))) {
-                bufferedWriter.write(content);
+                for (ArchEdContext context : listOfContexts) {
+                    bufferedWriter.write(context.toString());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
