@@ -1,28 +1,22 @@
 package app.mzperx.hmcConverter;
 
 import app.mzperx.converter.Converter;
-
+import java.io.File;
 
 public class HMCConverter implements Converter{
 
-    private TextFileLoader textLoader;
-    private TextFileWriter textWriter;
-    private TextFileParser textParser;
+    private ContextCreator contextCreator;
+    private TextFileWriter textFileWriter;
 
     public HMCConverter(String inputLocation, String outputLocation){
-        this.textLoader = new TextFileLoader(inputLocation);
-        this.textWriter = new TextFileWriter(outputLocation);
-        this.textParser = new TextFileParser();
+        this.contextCreator = new ContextCreator(new File(inputLocation));
+        this.textFileWriter = new TextFileWriter(outputLocation);
     }
 
-    private String getContent(){
-        return textLoader.getContent();
 
-    }
-
-    public void parseContent(){
-        String content = getContent();
-        textParser.parseContent(content);
+    public void convert(){
+        contextCreator.parseContent();
+//        textFileWriter.writeParsedContent(content);
     }
 
 

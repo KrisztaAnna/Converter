@@ -2,5 +2,5 @@ package app.mzperx.converter;
 
 public interface Converter {
 
-    public void parseContent();
+    public void convert();
 }
