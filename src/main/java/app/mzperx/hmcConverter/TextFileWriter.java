@@ -15,7 +15,7 @@ public class TextFileWriter {
         this. outputLocation = outputLocation;
     }
 
-    public void setListOfContexts(List<ArchEdContext> contexts) {
+    public void setContexts(List<ArchEdContext> contexts) {
         this.contexts = contexts;
     }
 

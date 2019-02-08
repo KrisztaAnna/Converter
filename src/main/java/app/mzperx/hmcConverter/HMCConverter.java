@@ -19,7 +19,7 @@ public class HMCConverter implements Converter{
 
     public void convert(){
         List<ArchEdContext> contexts = contextCreator.parseContent();
-        textFileWriter.setListOfContexts(contexts);
+        textFileWriter.setContexts(contexts);
 //        for (ArchEdContext context : contexts){
 //            System.out.println(context.toString());
 //        }
