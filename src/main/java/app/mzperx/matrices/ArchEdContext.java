@@ -35,6 +35,11 @@ public class ArchEdContext {
         return this.name;
     }
 
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
     public String toString(){
         return "Name: " + this.name + "\n"  +
                 "Description: " + this.description + "\n" +

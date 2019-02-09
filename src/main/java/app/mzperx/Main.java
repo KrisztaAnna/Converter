@@ -13,7 +13,7 @@ public class Main {
 //        ConverterController controller = new ConverterController();
 //        Converter converter = controller.chooseConverter();
 
-        Converter converter = new HMCConverter("/Users/krisztinabaranyai/Desktop/area_D.lst", "/Users/krisztinabaranyai/Desktop/output.txt");
+        Converter converter = new HMCConverter("/Users/krisztinabaranyai/Desktop/Area_D.lst", "/Users/krisztinabaranyai/Desktop/output.txt");
         converter.convert();
 
     }

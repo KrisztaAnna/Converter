@@ -1,5 +1,6 @@
 package app.mzperx.hmcConverter;
 
+import app.mzperx.exception.ListsAreNotTheSameSizeException;
 import app.mzperx.matrices.ArchEdContext;
 
 import java.io.File;
@@ -45,15 +46,47 @@ public class ContextCreator {
         return listOfContexts;
     }
 
+    private  List<String> getListOfContextData(String content){
+        List<String> records = new ArrayList<>();
+        String[] recordsToAdd = content.split("\\n.\\d{5}.");
+        for (String record : recordsToAdd){
+            records.add(record);
+        }
+        records.remove(0);
+        return records;
+    }
+
+    private List<ArchEdContext> addContextDataToContextDescriptionField(List<ArchEdContext> listOfContexts, List<String> listOfContextData) throws ListsAreNotTheSameSizeException {
+        int a = listOfContexts.size();
+        int b = listOfContextData.size();
+
+        if (a == b){
+            List<ArchEdContext> contextsWithData = new ArrayList<>();
+            for (int i = 0; i < listOfContexts.size(); i++) {
+                String description = listOfContextData.get(i);
+                listOfContexts.get(i).setDescription(description);
+                contextsWithData.add(listOfContexts.get(i));
+            }
+            return contextsWithData;
+        }
+        throw new ListsAreNotTheSameSizeException();
+    }
+
 
     public List<ArchEdContext> parseContent(){
-        List<ArchEdContext> listOfContexts = new ArrayList<>();
+        List<ArchEdContext> contexts = new ArrayList<>();
+        String content = getAllContent();
         try {
-            String content = getAllContent();
-            listOfContexts = getListOfContexts(content);
+            List<ArchEdContext> listOfContexts = getListOfContexts(content);
+            List<String> listOfContextData = getListOfContextData(content);
+            contexts = addContextDataToContextDescriptionField(listOfContexts, listOfContextData);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (ListsAreNotTheSameSizeException e) {
+            System.out.println(e.getMessage());
         }
-        return listOfContexts;
+        return contexts;
     }
 }
+
