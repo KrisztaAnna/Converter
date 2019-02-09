@@ -16,7 +16,6 @@ public class HMCConverter implements Converter{
         this.textFileWriter = new TextFileWriter(outputLocation);
     }
 
-
     public void convert(){
         List<ArchEdContext> contexts = contextExtractor.parseContent();
         textFileWriter.setContexts(contexts);

@@ -1,6 +1,7 @@
 package app.mzperx.hmcConverter;
 
 import app.mzperx.exception.ListsAreNotTheSameSizeException;
+import app.mzperx.hmcConverter.dao.implementation.memory.ArchedContextDaoMem;
 import app.mzperx.matrices.ArchEdContext;
 
 import java.io.File;
@@ -14,86 +15,88 @@ import java.util.regex.Pattern;
 
 public class ContextExtractor {
 
+    ArchedContextDaoMem archedContextDaoMem = ArchedContextDaoMem.getInstance();
     private File inputFile;
 
     ContextExtractor(File inputFile){
         this.inputFile = inputFile;
     }
 
-    private String getAllContent() {
+    private String getFileContent() {
         try {
             Scanner scanner = new Scanner(inputFile);
             String content = scanner.useDelimiter("\\A").next();
             scanner.close();
             return content;
-
         } catch (FileNotFoundException e1) {
             System.out.println("Input file is missing or not in the correct format.");
         }
         return null;
     }
 
-    private List<ArchEdContext> getListOfContexts(String content) throws FileNotFoundException {
-        List<ArchEdContext> listOfContexts = new ArrayList<>();
+    private List<ArchEdContext> createArchEdContextsWithName(String fileContent) throws FileNotFoundException {
+        List<ArchEdContext> namedContexts = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\n.\\d{5}.");
-        Matcher matcher = pattern.matcher(content);
+        Matcher matcher = pattern.matcher(fileContent);
 
         while (matcher.find()) {
             String name = matcher.group(0);
             String contextNumber = name.replaceAll("[^0-9]", "");
             ArchEdContext context = new ArchEdContext(contextNumber);
-            listOfContexts.add(context);
+
+            namedContexts.add(context);
         }
-        return listOfContexts;
+        return namedContexts;
     }
 
-    private  List<String> getListOfContextData(String content){
+    private  List<String> getListOfContextData(String fileContent){
         List<String> records = new ArrayList<>();
-        String[] recordsToAdd = content.split("\\n.\\d{5}.");
-
+        String[] recordsToAdd = fileContent.split("\\n.\\d{5}.");
         records.addAll(Arrays.asList(recordsToAdd));
-
         records.remove(0);
         return records;
     }
 
-    private List<ArchEdContext> addContextDataToInformationToSortField(List<ArchEdContext> listOfContexts, List<String> listOfContextData) throws ListsAreNotTheSameSizeException {
-        int a = listOfContexts.size();
+    private List<ArchEdContext> addContextDataToInformationToSortField(List<ArchEdContext> listOfNamedContexts, List<String> listOfContextData) throws ListsAreNotTheSameSizeException {
+        int a = listOfNamedContexts.size();
         int b = listOfContextData.size();
 
         if (a == b){
-            List<ArchEdContext> contextsWithData = new ArrayList<>();
-            for (int i = 0; i < listOfContexts.size(); i++) {
+            List<ArchEdContext> namedContextsWithData = new ArrayList<>();
+            for (int i = 0; i < listOfNamedContexts.size(); i++) {
                 String contextData = listOfContextData.get(i);
-                listOfContexts.get(i).setInformationToSort(contextData);
-                contextsWithData.add(listOfContexts.get(i));
+                listOfNamedContexts.get(i).setInformationToSort(contextData);
+                namedContextsWithData.add(listOfNamedContexts.get(i));
             }
-            return contextsWithData;
+            return namedContextsWithData;
         }
         throw new ListsAreNotTheSameSizeException();
     }
 
+    private void setCONTEXTS(String fileContent) throws FileNotFoundException, ListsAreNotTheSameSizeException {
+        List<ArchEdContext> listOfNamedContexts = createArchEdContextsWithName(fileContent);
+        List<String> listOfContextData = getListOfContextData(fileContent);
+        List<ArchEdContext> namedContextsWithData = addContextDataToInformationToSortField(listOfNamedContexts, listOfContextData);
+        for (ArchEdContext context : namedContextsWithData){
+            archedContextDaoMem.addContext(context);
+        }
+    }
+
     private List<ArchEdContext> finalizeContexts(List<ArchEdContext> listOfContextWithNameAndInformationToSort){
-
         List<ArchEdContext> finalizedContexts = new ArrayList<>();
-
         for (ArchEdContext context : listOfContextWithNameAndInformationToSort){
             context.sortInformation();
             finalizedContexts.add(context);
-
         }
         return finalizedContexts;
     }
 
-
     public List<ArchEdContext> parseContent(){
         List<ArchEdContext> contexts = new ArrayList<>();
-        String content = getAllContent();
+        String fileContent = getFileContent();
         try {
-            List<ArchEdContext> listOfContexts = getListOfContexts(content);
-            List<String> listOfContextData = getListOfContextData(content);
-            contexts = addContextDataToInformationToSortField(listOfContexts, listOfContextData);
-            finalizeContexts(contexts);
+            setCONTEXTS(fileContent);
+            finalizeContexts(archedContextDaoMem.getAllContexts());
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

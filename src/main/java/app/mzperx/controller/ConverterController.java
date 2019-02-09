@@ -2,7 +2,6 @@ package app.mzperx.controller;
 
 import app.mzperx.converter.Converter;
 import app.mzperx.hmcConverter.HMCConverter;
-import app.mzperx.hmcConverter.TextFileLoader;
 import java.util.Scanner;
 
 public class ConverterController {
