@@ -82,28 +82,24 @@ public class ContextExtractor {
         }
     }
 
-    private List<ArchEdContext> finalizeContexts(List<ArchEdContext> listOfContextWithNameAndInformationToSort){
-        List<ArchEdContext> finalizedContexts = new ArrayList<>();
-        for (ArchEdContext context : listOfContextWithNameAndInformationToSort){
+    private void finalizeContexts(){
+        for (ArchEdContext context : archedContextDaoMem.getAllContexts()){
             context.sortInformation();
-            finalizedContexts.add(context);
         }
-        return finalizedContexts;
     }
 
     public List<ArchEdContext> parseContent(){
-        List<ArchEdContext> contexts = new ArrayList<>();
         String fileContent = getFileContent();
         try {
             setCONTEXTS(fileContent);
-            finalizeContexts(archedContextDaoMem.getAllContexts());
+            finalizeContexts();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (ListsAreNotTheSameSizeException e) {
             System.out.println(e.getMessage());
         }
-        return contexts;
+        return archedContextDaoMem.getAllContexts();
     }
 }
 

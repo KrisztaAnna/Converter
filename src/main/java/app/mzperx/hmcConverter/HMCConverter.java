@@ -1,9 +1,12 @@
 package app.mzperx.hmcConverter;
 
 import app.mzperx.converter.Converter;
+import app.mzperx.exception.EmptyContextListException;
 import app.mzperx.matrices.ArchEdContext;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HMCConverter implements Converter{
@@ -18,8 +21,13 @@ public class HMCConverter implements Converter{
 
     public void convert(){
         List<ArchEdContext> contexts = contextExtractor.parseContent();
-        textFileWriter.setContexts(contexts);
-        textFileWriter.contextListToFile(contexts);
+        try {
+            textFileWriter.contextListToFile(contexts);
+        }catch (IOException e) {
+            e.printStackTrace();
+        } catch (EmptyContextListException e) {
+            e.printStackTrace();
+        }
     }
 
 
