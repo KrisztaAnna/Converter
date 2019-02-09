@@ -6,6 +6,7 @@ import app.mzperx.matrices.ArchEdContext;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -49,9 +50,9 @@ public class ContextExtractor {
     private  List<String> getListOfContextData(String content){
         List<String> records = new ArrayList<>();
         String[] recordsToAdd = content.split("\\n.\\d{5}.");
-        for (String record : recordsToAdd){
-            records.add(record);
-        }
+
+        records.addAll(Arrays.asList(recordsToAdd));
+
         records.remove(0);
         return records;
     }
@@ -63,13 +64,25 @@ public class ContextExtractor {
         if (a == b){
             List<ArchEdContext> contextsWithData = new ArrayList<>();
             for (int i = 0; i < listOfContexts.size(); i++) {
-                String informationToSort = listOfContextData.get(i);
-                listOfContexts.get(i).setInformationToSort(informationToSort);
+                String contextData = listOfContextData.get(i);
+                listOfContexts.get(i).setInformationToSort(contextData);
                 contextsWithData.add(listOfContexts.get(i));
             }
             return contextsWithData;
         }
         throw new ListsAreNotTheSameSizeException();
+    }
+
+    private List<ArchEdContext> finalizeContexts(List<ArchEdContext> listOfContextWithNameAndInformationToSort){
+
+        List<ArchEdContext> finalizedContexts = new ArrayList<>();
+
+        for (ArchEdContext context : listOfContextWithNameAndInformationToSort){
+            context.sortInformation();
+            finalizedContexts.add(context);
+
+        }
+        return finalizedContexts;
     }
 
 
@@ -80,6 +93,7 @@ public class ContextExtractor {
             List<ArchEdContext> listOfContexts = getListOfContexts(content);
             List<String> listOfContextData = getListOfContextData(content);
             contexts = addContextDataToInformationToSortField(listOfContexts, listOfContextData);
+            finalizeContexts(contexts);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
