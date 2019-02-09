@@ -11,11 +11,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ContextCreator {
+public class ContextExtractor {
 
     private File inputFile;
 
-    ContextCreator(File inputFile){
+    ContextExtractor(File inputFile){
         this.inputFile = inputFile;
     }
 
@@ -56,15 +56,15 @@ public class ContextCreator {
         return records;
     }
 
-    private List<ArchEdContext> addContextDataToContextDescriptionField(List<ArchEdContext> listOfContexts, List<String> listOfContextData) throws ListsAreNotTheSameSizeException {
+    private List<ArchEdContext> addContextDataToInformationToSortField(List<ArchEdContext> listOfContexts, List<String> listOfContextData) throws ListsAreNotTheSameSizeException {
         int a = listOfContexts.size();
         int b = listOfContextData.size();
 
         if (a == b){
             List<ArchEdContext> contextsWithData = new ArrayList<>();
             for (int i = 0; i < listOfContexts.size(); i++) {
-                String description = listOfContextData.get(i);
-                listOfContexts.get(i).setDescription(description);
+                String informationToSort = listOfContextData.get(i);
+                listOfContexts.get(i).setInformationToSort(informationToSort);
                 contextsWithData.add(listOfContexts.get(i));
             }
             return contextsWithData;
@@ -79,7 +79,7 @@ public class ContextCreator {
         try {
             List<ArchEdContext> listOfContexts = getListOfContexts(content);
             List<String> listOfContextData = getListOfContextData(content);
-            contexts = addContextDataToContextDescriptionField(listOfContexts, listOfContextData);
+            contexts = addContextDataToInformationToSortField(listOfContexts, listOfContextData);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

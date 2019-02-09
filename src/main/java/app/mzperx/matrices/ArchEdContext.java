@@ -10,21 +10,7 @@ public class ArchEdContext {
     private List<String> above;
     private List<String> contemporaryWith;
     private List<String> below;
-
-
-    public ArchEdContext(String name,
-                         String description,
-                         List<String> equalTo,
-                         List<String> above,
-                         List<String> contemporaryWith,
-                         List<String> below){
-        this.name = name;
-        this.description = description;
-        this.equalTo = equalTo;
-        this.above = above;
-        this.contemporaryWith = contemporaryWith;
-        this.below = below;
-    }
+    private String informationToSort;
 
 
     public ArchEdContext(String name){
@@ -40,13 +26,19 @@ public class ArchEdContext {
         this.description = description;
     }
 
+    public void setInformationToSort(String informationToSort){
+        this.informationToSort = informationToSort;
+    }
+
+
     public String toString(){
         return "Name: " + this.name + "\n"  +
                 "Description: " + this.description + "\n" +
                 "Equal to: " + this.equalTo + "\n" +
                 "Above: " + this.above + "\n" +
                 "Contemporary with: " + this.contemporaryWith + "\n" +
-                "Below: " + this.below + "\n\n";
+                "Below: " + this.below + "\n" +
+                "Information to sort inside the context: " + this.informationToSort + "\n\n";
     }
 
 
