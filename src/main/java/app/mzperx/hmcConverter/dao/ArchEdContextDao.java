@@ -1,6 +1,6 @@
 package app.mzperx.hmcConverter.dao;
 
-import app.mzperx.matrices.ArchEdContext;
+import app.mzperx.hmcConverter.model.ArchEdContext;
 
 import java.util.List;
 

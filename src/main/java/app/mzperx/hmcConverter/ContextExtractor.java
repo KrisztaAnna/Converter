@@ -2,7 +2,7 @@ package app.mzperx.hmcConverter;
 
 import app.mzperx.exception.ListsAreNotTheSameSizeException;
 import app.mzperx.hmcConverter.dao.implementation.memory.ArchedContextDaoMem;
-import app.mzperx.matrices.ArchEdContext;
+import app.mzperx.hmcConverter.model.ArchEdContext;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,16 +34,14 @@ public class ContextExtractor {
         return null;
     }
 
-    private List<ArchEdContext> createArchEdContextsWithName(String fileContent) throws FileNotFoundException {
+    private List<ArchEdContext> createArchEdContextsWithName(String fileContent){
         List<ArchEdContext> namedContexts = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\n.\\d{5}.");
+        Pattern pattern = Pattern.compile("\\n.?\\d{5}.?");
         Matcher matcher = pattern.matcher(fileContent);
-
         while (matcher.find()) {
             String name = matcher.group(0);
             String contextNumber = name.replaceAll("[^0-9]", "");
             ArchEdContext context = new ArchEdContext(contextNumber);
-
             namedContexts.add(context);
         }
         return namedContexts;
@@ -51,7 +49,7 @@ public class ContextExtractor {
 
     private  List<String> getListOfContextData(String fileContent){
         List<String> records = new ArrayList<>();
-        String[] recordsToAdd = fileContent.split("\\n.\\d{5}.");
+        String[] recordsToAdd = fileContent.split("\\n.?\\d{5}.?");
         records.addAll(Arrays.asList(recordsToAdd));
         records.remove(0);
         return records;

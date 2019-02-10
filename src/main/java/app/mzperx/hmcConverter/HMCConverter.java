@@ -2,11 +2,10 @@ package app.mzperx.hmcConverter;
 
 import app.mzperx.converter.Converter;
 import app.mzperx.exception.EmptyContextListException;
-import app.mzperx.matrices.ArchEdContext;
+import app.mzperx.hmcConverter.model.ArchEdContext;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HMCConverter implements Converter{

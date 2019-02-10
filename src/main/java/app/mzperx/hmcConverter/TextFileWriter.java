@@ -1,7 +1,7 @@
 package app.mzperx.hmcConverter;
 
 import app.mzperx.exception.EmptyContextListException;
-import app.mzperx.matrices.ArchEdContext;
+import app.mzperx.hmcConverter.model.ArchEdContext;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -22,6 +22,8 @@ public class TextFileWriter {
                 for (ArchEdContext context : listOfContexts) {
                     bufferedWriter.write(context.toString());
                 }
+            }catch (NullPointerException e){
+                System.out.println(e.getMessage());
             }
         } if (listOfContexts.size() == 0){
             throw new EmptyContextListException();

@@ -1,7 +1,7 @@
 package app.mzperx.hmcConverter.dao.implementation.memory;
 
 import app.mzperx.hmcConverter.dao.ArchEdContextDao;
-import app.mzperx.matrices.ArchEdContext;
+import app.mzperx.hmcConverter.model.ArchEdContext;
 import java.util.ArrayList;
 import java.util.List;
 
