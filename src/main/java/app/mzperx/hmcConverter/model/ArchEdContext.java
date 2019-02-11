@@ -107,7 +107,7 @@ public class ArchEdContext {
                 }
             }
         }
-        // remove the equalTo part from the information field
+        // remove the processed part from the information field
         this.setInformationToSort(info[1]);
     }
 

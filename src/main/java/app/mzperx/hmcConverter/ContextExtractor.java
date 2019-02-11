@@ -3,6 +3,8 @@ package app.mzperx.hmcConverter;
 import app.mzperx.exception.ListsAreNotTheSameSizeException;
 import app.mzperx.hmcConverter.dao.implementation.memory.ArchedContextDaoMem;
 import app.mzperx.hmcConverter.model.ArchEdContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +16,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ContextExtractor {
+
+    private static final Logger logger = LoggerFactory.getLogger(ArchEdContext.class);
     ArchedContextDaoMem archedContextDaoMem = ArchedContextDaoMem.getInstance();
     private File inputFile;
 
@@ -22,18 +26,20 @@ public class ContextExtractor {
     }
 
     private String getFileContent() {
+        logger.info("Reading input file...");
         try {
             Scanner scanner = new Scanner(inputFile);
             String content = scanner.useDelimiter("\\A").next();
             scanner.close();
             return content;
         } catch (FileNotFoundException e1) {
-            System.out.println("Input file is missing or not in the correct format.");
+            logger.error(e1.getMessage());
         }
         return null;
     }
 
     private List<ArchEdContext> createArchEdContextsWithName(String fileContent){
+        logger.info("Extracting contexts from input file...");
         List<ArchEdContext> namedContexts = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\n.?\\d{5}.?");
         Matcher matcher = pattern.matcher(fileContent);
@@ -43,14 +49,17 @@ public class ContextExtractor {
             ArchEdContext context = new ArchEdContext(contextNumber);
             namedContexts.add(context);
         }
+        logger.info("Number of named contexts extracted: " + namedContexts.size());
         return namedContexts;
     }
 
     private  List<String> getListOfContextData(String fileContent){
+        logger.info("Extracting context data...");
         List<String> records = new ArrayList<>();
         String[] recordsToAdd = fileContent.split("\\n.?\\d{5}.?");
         records.addAll(Arrays.asList(recordsToAdd));
         records.remove(0);
+        logger.info("Data have been extracted for " + records.size() + " contexts");
         return records;
     }
 
@@ -59,6 +68,7 @@ public class ContextExtractor {
         int b = listOfContextData.size();
 
         if (a == b){
+            logger.info("Merging context data with contexts...");
             List<ArchEdContext> namedContextsWithData = new ArrayList<>();
             for (int i = 0; i < listOfNamedContexts.size(); i++) {
                 String contextData = listOfContextData.get(i);
@@ -67,7 +77,9 @@ public class ContextExtractor {
             }
             return namedContextsWithData;
         }
-        throw new ListsAreNotTheSameSizeException();
+        ListsAreNotTheSameSizeException e = new ListsAreNotTheSameSizeException();
+        logger.error(e.getMessage(),e);
+        throw e;
     }
 
     private void setCONTEXTS(String fileContent) throws FileNotFoundException, ListsAreNotTheSameSizeException {
