@@ -22,8 +22,6 @@ public class TextFileWriter {
                 for (ArchEdContext context : listOfContexts) {
                     bufferedWriter.write(context.toString());
                 }
-            }catch (NullPointerException e){
-                System.out.println(e.getMessage());
             }
         } if (listOfContexts.size() == 0){
             throw new EmptyContextListException();

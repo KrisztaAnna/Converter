@@ -15,8 +15,8 @@ public class Main {
 //                                              "/Users/krisztinabaranyai/Desktop/Area_D_output.txt");
 //        converter.convert();
 //
-        Converter converter2 = new HMCConverter("/Users/krisztinabaranyai/Desktop/Area_I_1.txt",
-                                               "/Users/krisztinabaranyai/Desktop/Area_I_1_output.txt");
+        Converter converter2 = new HMCConverter("/Users/krisztinabaranyai/Desktop/Area_D.txt",
+                                               "/Users/krisztinabaranyai/Desktop/Area_D_output.txt");
         converter2.convert();
 
     }

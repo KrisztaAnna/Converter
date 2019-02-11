@@ -13,7 +13,6 @@ public class ArchEdContext {
     private List<ArchEdContext> equalTo = new ArrayList<>();
     private List<ArchEdContext> above = new ArrayList<>();
     private List<ArchEdContext> contemporaryWith = new ArrayList<>();
-
     private List<String> below;
     private String informationToSort;
 
@@ -23,6 +22,10 @@ public class ArchEdContext {
 
     public String getName(){
         return this.name;
+    }
+
+    public List<ArchEdContext> getEqualTo(){
+        return this.equalTo;
     }
 
     public void setInformationToSort(String informationToSort){
@@ -38,15 +41,18 @@ public class ArchEdContext {
     }
 
     private void setEqualTo(){
-        String[] info =  this.informationToSort.split("above:");
-        String[] contextsToAdd =  info[0].split("\\s|,\\s");
-
         List<ArchEdContext> allContexts = archEdContextDao.getAllContexts();
+        String[] info =  this.informationToSort.split("above:");
+        String[] contextNames =  info[0].split("\\s|,\\s");
+        List<String> contextsToAdd = new ArrayList<>();
 
-        for (String s : contextsToAdd){
+        for (String s : contextNames){
+            contextsToAdd.add(s.replaceAll("[^0-9]", ""));
+        }
+
+        for (String contextName : contextsToAdd) {
             for (ArchEdContext context : allContexts){
-
-                if (s.equals(context.getName())){
+                if (contextName.equals(context.getName())){
                     this.equalTo.add(context);
                 }
             }
@@ -60,19 +66,17 @@ public class ArchEdContext {
         setEqualTo();
     }
 
-
-
     public String toString(){
-
         String equalToToString = equalToToString();
         try {
             return "Name: " + this.name + "\n" +
                     "Description: " + this.description + "\n" +
+//                    "Equal to: " + this.equalTo + "\n" +
                     "Equal to: " + equalToToString + "\n" +
                     "Above: " + this.above + "\n" +
                     "Contemporary with: " + this.contemporaryWith + "\n" +
                     "Below: " + this.below + "\n" +
-                    "Information to sort: \n" + this.informationToSort + "\n\n";
+                    "Information to sort: \n" + this.informationToSort + "\n+++++++++++++++++++++++++++++++++++++++++++\n";
         }catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
@@ -86,7 +90,4 @@ public class ArchEdContext {
         }
         return equalTo;
     }
-
-
 }
-
