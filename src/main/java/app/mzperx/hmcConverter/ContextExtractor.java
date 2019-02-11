@@ -14,7 +14,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ContextExtractor {
-
     ArchedContextDaoMem archedContextDaoMem = ArchedContextDaoMem.getInstance();
     private File inputFile;
 

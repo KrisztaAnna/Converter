@@ -4,6 +4,6 @@ public class EmptyContextListException extends Exception{
 
     @Override
     public String getMessage() {
-        return "Context list is empty!";
+        return "No context number was extracted from input file!";
     }
 }

@@ -2,9 +2,14 @@ package app.mzperx.controller;
 
 import app.mzperx.converter.Converter;
 import app.mzperx.hmcConverter.HMCConverter;
+import app.mzperx.hmcConverter.model.ArchEdContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Scanner;
 
 public class ConverterController {
+    private static final Logger logger = LoggerFactory.getLogger(ArchEdContext.class);
 
     public Converter chooseConverter(){
         String inputLocation = getInputLocation();
@@ -14,11 +19,15 @@ public class ConverterController {
     }
 
     private String getOutputLocation(){
-        return getPath("output");
+        String path = getPath("output");
+        logger.info("Output path and file name: " + path);
+        return path;
     }
 
     private String getInputLocation(){
-        return getPath("input");
+        String path = getPath("input");
+        logger.info("Input path and file name: " + path);
+        return path;
     }
 
     //Gets path to either input or output file through user input

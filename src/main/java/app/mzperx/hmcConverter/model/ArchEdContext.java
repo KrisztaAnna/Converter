@@ -2,6 +2,9 @@ package app.mzperx.hmcConverter.model;
 
 import app.mzperx.hmcConverter.dao.ArchEdContextDao;
 import app.mzperx.hmcConverter.dao.implementation.memory.ArchedContextDaoMem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -29,10 +32,6 @@ public class ArchEdContext {
 
     public String getName(){
         return this.name;
-    }
-
-    public List<ArchEdContext> getEqualTo(){
-        return this.equalTo;
     }
 
     public void setInformationToSort(String informationToSort){
