@@ -26,7 +26,7 @@ public class TextFileWriter {
                 for (ArchEdContext context : listOfContexts) {
                     bufferedWriter.write(context.toString());
                 }
-                logger.info("Conversion finished. You can find the output file on the following location: " + this.outputLocation + "\n");
+                logger.info("Conversion finished. Output file can be found at the following location: " + this.outputLocation + "\n");
             } catch (IOException e) {
                 logger.error(e.getMessage(), e);
                 e.printStackTrace();

@@ -49,7 +49,7 @@ public class ContextExtractor {
             ArchEdContext context = new ArchEdContext(contextNumber);
             namedContexts.add(context);
         }
-        logger.info("Number of named contexts extracted: " + namedContexts.size());
+        logger.info("Number of named contexts extracted: " + namedContexts.size() + ".");
         return namedContexts;
     }
 
@@ -59,7 +59,7 @@ public class ContextExtractor {
         String[] recordsToAdd = fileContent.split("\\n.?\\d{5}.?");
         records.addAll(Arrays.asList(recordsToAdd));
         records.remove(0);
-        logger.info("Data have been extracted for " + records.size() + " contexts");
+        logger.info("Data have been extracted for " + records.size() + " contexts.");
         return records;
     }
 
@@ -83,31 +83,35 @@ public class ContextExtractor {
     }
 
     private void setCONTEXTS(String fileContent) throws FileNotFoundException, ListsAreNotTheSameSizeException {
+        logger.info("Setting up list of context objects...");
         List<ArchEdContext> listOfNamedContexts = createArchEdContextsWithName(fileContent);
         List<String> listOfContextData = getListOfContextData(fileContent);
         List<ArchEdContext> namedContextsWithData = addContextDataToInformationToSortField(listOfNamedContexts, listOfContextData);
         for (ArchEdContext context : namedContextsWithData){
             archedContextDaoMem.addContext(context);
         }
+        logger.info(this.archedContextDaoMem.getAllContexts().size() + " context objects have been created and added data to.");
     }
 
     private void finalizeContexts(){
+        logger.info("Sorting context data into fields...");
         for (ArchEdContext context : archedContextDaoMem.getAllContexts()){
             context.sortInformation();
         }
     }
 
     public List<ArchEdContext> parseContent(){
+        logger.info("Parsing starts...");
         String fileContent = getFileContent();
         try {
             setCONTEXTS(fileContent);
             finalizeContexts();
-
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } catch (ListsAreNotTheSameSizeException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
+        logger.info("Parsing finished.");
         return archedContextDaoMem.getAllContexts();
     }
 }
