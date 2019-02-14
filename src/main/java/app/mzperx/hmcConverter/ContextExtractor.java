@@ -6,6 +6,7 @@ import app.mzperx.hmcConverter.model.ArchEdContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -93,6 +94,15 @@ public class ContextExtractor {
         logger.info(this.archedContextDaoMem.getAllContexts().size() + " context objects have been created and added data to.");
     }
 
+//    private List<String> checkForDuplicates(){
+//        logger.info("Looking for duplicated context numbers in list of context objects...");
+//
+//        List<String > duplicates = new ArrayList<>();
+//        List<ArchEdContext> contexts = archedContextDaoMem.getAllContexts();
+//
+//        return duplicates;
+//    }
+
     private void finalizeContexts(){
         logger.info("Sorting context data into fields...");
         for (ArchEdContext context : archedContextDaoMem.getAllContexts()){
@@ -106,6 +116,7 @@ public class ContextExtractor {
         try {
             setCONTEXTS(fileContent);
             finalizeContexts();
+//            logger.info("Number of duplicates found: " + checkForDuplicates().size());
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage());
         } catch (ListsAreNotTheSameSizeException e) {

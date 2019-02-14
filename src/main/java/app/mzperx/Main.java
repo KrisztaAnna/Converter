@@ -11,7 +11,7 @@ public class Main {
 //        ConverterController controller = new ConverterController();
 //        Converter converter = controller.chooseConverter();
 
-        Converter converter2 = new HMCConverter("/Users/krisztinabaranyai/Desktop/Area_I_1.txt",
+        Converter converter2 = new HMCConverter("/Users/krisztinabaranyai/Desktop/Area_D.txt",
                                                "/Users/krisztinabaranyai/Desktop/Area_D_output.txt");
         converter2.convert();
 

@@ -40,7 +40,7 @@ public class ArchEdContext {
     }
 
     private void setDescription(){
-        logger.info("Setting field \"description\" for context: " + this.name);
+//        logger.info("Setting field \"description\" for context: " + this.name);
         String[] info =  this.informationToSort.split("equal to:");
         String description = info[0].trim();
         this.description = description;
@@ -49,7 +49,7 @@ public class ArchEdContext {
     }
 
     private void setBelow(){
-        logger.info("Setting field \"below\" for context: " + this.name);
+//        logger.info("Setting field \"below\" for context: " + this.name);
         List<ArchEdContext> allContexts = archEdContextDao.getAllContexts();
         List<String> contextsToAdd = new ArrayList<>();
 
@@ -85,7 +85,7 @@ public class ArchEdContext {
         }
 
         if (fieldRegex.equals(this.regexEqualTo)){
-            logger.info("Setting field \"equal to\" for context: " + this.name);
+//            logger.info("Setting field \"equal to\" for context: " + this.name);
             for (String contextName : contextsToAdd) {
                 for (ArchEdContext context : allContexts){
                     if (contextName.equals(context.getName())){
@@ -94,7 +94,7 @@ public class ArchEdContext {
                 }
             }
         }else if(fieldRegex.equals(this.regexAbove)){
-            logger.info("Setting field \"above\" for context: " + this.name);
+//            logger.info("Setting field \"above\" for context: " + this.name);
             for (String contextName : contextsToAdd) {
                 for (ArchEdContext context : allContexts){
                     if (contextName.equals(context.getName())){
@@ -103,7 +103,7 @@ public class ArchEdContext {
                 }
             }
         }else if(fieldRegex.equals(this.regexContemporaryWith)){
-            logger.info("Setting field \"contemporary with\" for context: " + this.name);
+//            logger.info("Setting field \"contemporary with\" for context: " + this.name);
             for (String contextName : contextsToAdd) {
                 for (ArchEdContext context : allContexts){
                     if (contextName.equals(context.getName())){
@@ -117,7 +117,7 @@ public class ArchEdContext {
     }
 
     public void sortInformation(){
-        logger.info("Sorting context data between fields...");
+//        logger.info("Sorting context data between fields...");
         setDescription();
         setField(this.regexEqualTo);
         setField(this.regexAbove);
