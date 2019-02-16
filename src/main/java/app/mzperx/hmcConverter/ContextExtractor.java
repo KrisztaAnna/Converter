@@ -89,19 +89,12 @@ public class ContextExtractor {
         List<String> listOfContextData = getListOfContextData(fileContent);
         List<ArchEdContext> namedContextsWithData = addContextDataToInformationToSortField(listOfNamedContexts, listOfContextData);
         for (ArchEdContext context : namedContextsWithData){
+
             archedContextDaoMem.addContext(context);
+
         }
         logger.info(this.archedContextDaoMem.getAllContexts().size() + " context objects have been created and added data to.");
     }
-
-//    private List<String> checkForDuplicates(){
-//        logger.info("Looking for duplicated context numbers in list of context objects...");
-//
-//        List<String > duplicates = new ArrayList<>();
-//        List<ArchEdContext> contexts = archedContextDaoMem.getAllContexts();
-//
-//        return duplicates;
-//    }
 
     private void finalizeContexts(){
         logger.info("Sorting context data into fields...");
@@ -116,7 +109,6 @@ public class ContextExtractor {
         try {
             setCONTEXTS(fileContent);
             finalizeContexts();
-//            logger.info("Number of duplicates found: " + checkForDuplicates().size());
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage());
         } catch (ListsAreNotTheSameSizeException e) {
