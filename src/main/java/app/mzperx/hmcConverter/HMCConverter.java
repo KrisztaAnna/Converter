@@ -26,6 +26,7 @@ public class HMCConverter implements Converter{
         try {
             List<ArchEdContext> contexts = contextExtractor.parseContent();
             textFileWriter.contextListToFile(contexts);
+            ProjectXMLWriter.writeProjectXML();
         }catch (EmptyContextListException e) {
             logger.error(e.getMessage(), e);
         }catch (FileNotFoundException e) {
