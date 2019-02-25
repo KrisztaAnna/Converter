@@ -31,10 +31,6 @@ public class ArchEdContext {
         this.name = name;
     }
 
-    public String getName(){
-        return this.name;
-    }
-
     public void setInformationToSort(String informationToSort){
         this.informationToSort = informationToSort;
     }
@@ -114,6 +110,31 @@ public class ArchEdContext {
         }
         // remove the processed part from the information field
         this.setInformationToSort(info[1]);
+    }
+
+
+    public String getName(){
+        return this.name;
+    }
+
+    public List<ArchEdContext> getBelow(){
+        return this.below;
+    }
+
+    public List<ArchEdContext> getEqualTo(){
+        return this.equalTo;
+    }
+
+    public List<ArchEdContext> getAbove(){
+        return this.above;
+    }
+
+    public List<ArchEdContext> getContemporaryWith(){
+        return this.contemporaryWith;
+    }
+
+    public String getDescription(){
+        return this.description;
     }
 
     public void sortInformation(){

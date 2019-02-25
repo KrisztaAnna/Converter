@@ -15,6 +15,7 @@ public class HMCConverter implements Converter{
     private static final Logger logger = LoggerFactory.getLogger(ArchEdContext.class);
     private ContextExtractor contextExtractor;
     private TextFileWriter textFileWriter;
+    private ArchEdContextToNodesAndEdges archEdContextToNodesAndEdges;
 
     public HMCConverter(String inputLocation, String outputLocation){
         this.contextExtractor = new ContextExtractor(new File(inputLocation));
@@ -23,11 +24,15 @@ public class HMCConverter implements Converter{
 
     public void convert(){
         logger.info("Conversion starts... ");
+        archEdContextToNodesAndEdges = new ArchEdContextToNodesAndEdges();
         try {
-            List<ArchEdContext> contexts = contextExtractor.parseContent();
+            List<ArchEdContext> contexts = contextExtractor.txtToArchEdContextList();
             textFileWriter.contextListToFile(contexts);
+            archEdContextToNodesAndEdges.createNodesandEdges();
             ProjectXMLWriter.writeProjectXML();
+            MatrixXMLWriter.writeMatrixXML();
         }catch (EmptyContextListException e) {
+            logger.error(e.getMessage(), e);
             logger.error(e.getMessage(), e);
         }catch (FileNotFoundException e) {
             logger.error(e.getMessage(), e);
