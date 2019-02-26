@@ -42,8 +42,8 @@ public class ArchEdContextToNodesAndEdges {
         List<ArchEdContext> allContexts = archedContextDaoMem.getAllContexts();
 
         for (ArchEdContext context : allContexts){
-            if(context.getAbove().size()>0){
-                for(ArchEdContext targetC : context.getAbove()){
+            if(context.getBelow().size()>0){
+                for(ArchEdContext targetC : context.getBelow()){
                     Node source = nodeDaoMem.getBy(context.getName());
                     Node target = nodeDaoMem.getBy(targetC.getName());
                     allEdges.add(new Edge(source, target, new HmcEdge("ABOVE")));
