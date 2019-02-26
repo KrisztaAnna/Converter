@@ -2,6 +2,7 @@ package app.mzperx.hmcConverter.hmcgraph;
 
 import app.mzperx.hmcConverter.dao.ArchEdContextDao;
 import app.mzperx.hmcConverter.dao.implementation.memory.ArchedContextDaoMem;
+import app.mzperx.hmcConverter.dao.implementation.memory.EdgeDaoMem;
 import app.mzperx.hmcConverter.dao.implementation.memory.NodeDaoMem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ public class Graph {
     private static final Logger logger = LoggerFactory.getLogger(Graph.class);
 
     NodeDaoMem nodeDaoMem = NodeDaoMem.getInstance();
+    EdgeDaoMem edgeDaoMem = EdgeDaoMem.getInstance();
 
     private String edgedefault = "directed";
     private String id = "g1";
@@ -20,11 +22,13 @@ public class Graph {
 
     public Graph(){
         this.parseNodes = nodeDaoMem.getAllNodes().size();
+        this.parseEdges = edgeDaoMem.getAllEdges().size();
     }
 
-    private void setParseEdges(){
-
-    }
+//    private void setParseEdges(){
+//
+//
+//    }
 
     public String openingToString() {
         return "\n  <graph edgedefault=\"" + this.edgedefault + "\" " +

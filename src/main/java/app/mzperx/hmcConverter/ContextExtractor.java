@@ -2,7 +2,6 @@ package app.mzperx.hmcConverter;
 
 import app.mzperx.exception.ListsAreNotTheSameSizeException;
 import app.mzperx.hmcConverter.dao.implementation.memory.ArchedContextDaoMem;
-import app.mzperx.hmcConverter.dao.implementation.memory.NodeDaoMem;
 import app.mzperx.hmcConverter.model.ArchEdContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,6 @@ public class ContextExtractor {
 
     private static final Logger logger = LoggerFactory.getLogger(ArchEdContext.class);
     private ArchedContextDaoMem archedContextDaoMem = ArchedContextDaoMem.getInstance();
-    private NodeDaoMem nodeDaoMem = NodeDaoMem.getInstance();
     private File inputFile;
 
     ContextExtractor(File inputFile){

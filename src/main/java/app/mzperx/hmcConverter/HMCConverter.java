@@ -30,7 +30,7 @@ public class HMCConverter implements Converter{
             textFileWriter.contextListToFile(contexts);
             archEdContextToNodesAndEdges.createNodesAndEdges();
             MatrixXMLWriter.writeMatrixXML();
-            ProjectXMLWriter.writeProjectXML();
+//            ProjectXMLWriter.writeProjectXML();
         }catch (EmptyContextListException e) {
             logger.error(e.getMessage(), e);
             logger.error(e.getMessage(), e);

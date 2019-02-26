@@ -36,10 +36,10 @@ public class NodeDaoMem implements NodeDao {
 
     @Override
     public Node getBy(String id){
-        logger.debug("Looking for node: " + id);
+//        logger.debug("Looking for node: " + id);
         for (Node n : NODES){
             if (n.getId().equals(id)){
-                logger.info("Returning node: " + id);
+//                logger.info("Returning node: " + id);
                 return n;
             }
         }

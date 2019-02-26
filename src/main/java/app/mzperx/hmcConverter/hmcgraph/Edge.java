@@ -26,7 +26,6 @@ public class Edge {
         return this.id;
     }
 
-
     public Node getSource(){
         return this.source;
     }
@@ -34,8 +33,6 @@ public class Edge {
     public Node getTarget(){
         return this.target;
     }
-
-
 
     public String toString(){
         return

@@ -27,6 +27,7 @@ public class ArchEdContextToNodesAndEdges {
             Node node = new Node(new HmcNode(context));
             allNodes.add(node);
         }
+        logger.info(allNodes.size() + " nodes have been created.");
     }
 
     private void indexEdges(){
@@ -37,7 +38,7 @@ public class ArchEdContextToNodesAndEdges {
     }
 
     private void createAboveEdges(){
-        logger.info("Creating edges... ");
+        logger.info("Creating \"ABOVE\" edges... ");
         List<Edge> allEdges = edgeDaoMem.getAllEdges();
         List<ArchEdContext> allContexts = archedContextDaoMem.getAllContexts();
 
@@ -51,11 +52,12 @@ public class ArchEdContextToNodesAndEdges {
             }
         }
         indexEdges();
+        logger.info("Number of edges: " + allEdges.size());
 
     }
 
     private void createContemporaryEdges(){
-        logger.info("Creating edges... ");
+        logger.info("Creating \"CONTEMPORAY\" edges... ");
         List<Edge> allEdges = edgeDaoMem.getAllEdges();
         List<ArchEdContext> allContexts = archedContextDaoMem.getAllContexts();
 
@@ -72,6 +74,7 @@ public class ArchEdContextToNodesAndEdges {
             }
         }
         indexEdges();
+        logger.info("Number of edges: " + allEdges.size());
 
     }
 
