@@ -144,7 +144,7 @@ public class ArchEdContext {
         setField(this.regexAbove);
         setField(this.regexContemporaryWith);
         setBelow();
-        logger.info("Context " + this.name + " is sorted");
+        logger.info("Content of context " + this.name + " is sorted.");
     }
 
     public String toString(){

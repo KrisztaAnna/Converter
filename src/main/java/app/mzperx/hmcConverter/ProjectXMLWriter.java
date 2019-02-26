@@ -13,8 +13,9 @@ public class ProjectXMLWriter {
 
    public static void writeProjectXML(){
        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("/Users/krisztinabaranyai/Desktop/project.xml"))) {
+           logger.info("Writing project.xml...");
            bufferedWriter.write(text);
-            logger.info("Writing project.xml ");
+           logger.info("Writing finished.");
        } catch (IOException e) {
            e.printStackTrace();
        }

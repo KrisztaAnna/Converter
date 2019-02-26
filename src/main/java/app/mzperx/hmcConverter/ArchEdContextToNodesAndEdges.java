@@ -4,6 +4,7 @@ import app.mzperx.hmcConverter.dao.implementation.memory.ArchedContextDaoMem;
 import app.mzperx.hmcConverter.dao.implementation.memory.EdgeDaoMem;
 import app.mzperx.hmcConverter.dao.implementation.memory.NodeDaoMem;
 import app.mzperx.hmcConverter.hmcgraph.Edge;
+import app.mzperx.hmcConverter.hmcgraph.HmcEdge;
 import app.mzperx.hmcConverter.hmcgraph.HmcNode;
 import app.mzperx.hmcConverter.hmcgraph.Node;
 import app.mzperx.hmcConverter.model.ArchEdContext;
@@ -17,8 +18,7 @@ public class ArchEdContextToNodesAndEdges {
 
     private ArchedContextDaoMem archedContextDaoMem = ArchedContextDaoMem.getInstance();
     private NodeDaoMem nodeDaoMem = NodeDaoMem.getInstance();
-//    private EdgeDaoMem edgeDaoMem = EdgeDaoMem.getInstance();
-
+    private EdgeDaoMem edgeDaoMem = EdgeDaoMem.getInstance();
 
     private void contextsToNodes(){
         logger.info("Converting ArchEd contexts into HMC nodes...");
@@ -29,14 +29,56 @@ public class ArchEdContextToNodesAndEdges {
         }
     }
 
-//    private void creatingEdges(){
-//        List<Edge> allEdges = edgeDaoMem.getAllEdges();
-//        List<Node> allNodes = nodeDaoMem.getAllNodes();
-//
-//    }
+    private void indexEdges(){
+        List<Edge> allEdges = edgeDaoMem.getAllEdges();
+        for(Edge e: allEdges){
+            e.setId(allEdges.indexOf(e)+1);
+        }
+    }
 
-    public void createNodesandEdges(){
+    private void createAboveEdges(){
+        logger.info("Creating edges... ");
+        List<Edge> allEdges = edgeDaoMem.getAllEdges();
+        List<ArchEdContext> allContexts = archedContextDaoMem.getAllContexts();
+
+        for (ArchEdContext context : allContexts){
+            if(context.getAbove().size()>0){
+                for(ArchEdContext targetC : context.getAbove()){
+                    Node source = nodeDaoMem.getBy(context.getName());
+                    Node target = nodeDaoMem.getBy(targetC.getName());
+                    allEdges.add(new Edge(source, target, new HmcEdge("ABOVE")));
+                }
+            }
+        }
+        indexEdges();
+
+    }
+
+    private void createContemporaryEdges(){
+        logger.info("Creating edges... ");
+        List<Edge> allEdges = edgeDaoMem.getAllEdges();
+        List<ArchEdContext> allContexts = archedContextDaoMem.getAllContexts();
+
+        for (ArchEdContext context : allContexts){
+            if(context.getContemporaryWith().size()>0){
+                for(ArchEdContext targetC : context.getContemporaryWith()){
+                    Node source = nodeDaoMem.getBy(context.getName());
+                    Node target = nodeDaoMem.getBy(targetC.getName());
+                    if(!edgeDaoMem.doesContemporaryEdgeExist(source, target)){
+                        allEdges.add(new Edge(source, target, new HmcEdge("CONTEMPORARY")));
+                    }
+
+                }
+            }
+        }
+        indexEdges();
+
+    }
+
+    public void createNodesAndEdges(){
         contextsToNodes();
+        createAboveEdges();
+        createContemporaryEdges();
     }
 
 }

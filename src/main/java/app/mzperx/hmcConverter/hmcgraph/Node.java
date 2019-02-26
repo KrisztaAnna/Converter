@@ -5,6 +5,7 @@ public class Node {
     private String data = "key=\"d2\"";
     private HmcNode hmcNode;
 
+
     public Node(HmcNode hmcNode){
         this.hmcNode = hmcNode;
         this.id = hmcNode.getId();
@@ -12,6 +13,10 @@ public class Node {
 
     public String getId(){
         return this.id;
+    }
+
+    public HmcNode getHmcNode(){
+        return this.hmcNode;
     }
 
     @Override

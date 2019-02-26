@@ -13,9 +13,10 @@ public class MatrixXMLWriter {
 
     public static void writeMatrixXML(){
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("/Users/krisztinabaranyai/Desktop/matrix.xml"))) {
+            logger.info("Writing matrix.xml starts...");
             matrixXMLBuilder = new MatrixXMLBuilder();
             bufferedWriter.write(matrixXMLBuilder.buildGraph());
-            logger.info("Writing matrix.xml ");
+            logger.info("Writing finished.");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -8,8 +8,8 @@ public class HmcEdge {
     private String valid = "true";
     private String xmlns = "";
 
-    private String source = "     <source x=\"0.0\" y=\"0.0\"/>";
-    private String target = "     <target x=\"0.0\" y=\"0.0\"/>";
+    private String source = "\t\t\t\t\t<source x=\"0.0\" y=\"0.0\"/>";
+    private String target = "\t\t\t\t\t<target x=\"0.0\" y=\"0.0\"/>";
 
 
     public HmcEdge(String type){
@@ -17,12 +17,10 @@ public class HmcEdge {
     }
 
     public String toString(){
-        return "\n        <hmcedge type=\"ABOVE\" " +
-                                  "valid=\"" + this.valid + "\" " +
-                                  "xmlns=\"" + this.xmlns + "\">\n" +
-                                   this.source +
-                                   this.target +
-                "        </hmcedge>";
+        return "\n\t\t\t\t<hmcedge type=\"" + this.type + "\" valid=\"" + this .valid +"\" xmlns=\"" + this.xmlns + "\">"  + "\n" +
+                this.source + "\n" +
+                this.target + "\n" +
+                "\t\t\t\t</hmcedge>";
     }
 
 }

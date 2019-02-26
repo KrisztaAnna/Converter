@@ -106,7 +106,7 @@ public class ContextExtractor {
     }
 
     public List<ArchEdContext> txtToArchEdContextList(){
-        logger.info("Parsing starts...");
+        logger.info("Parsing txt file...");
         String fileContent = getFileContent();
         try {
             setCONTEXTS(fileContent);
@@ -116,7 +116,7 @@ public class ContextExtractor {
         } catch (ListsAreNotTheSameSizeException e) {
             logger.error(e.getMessage());
         }
-        logger.info("Parsing finished.");
+        logger.info("Parsing finished. List of ArchEd contexts have been created.");
         return archedContextDaoMem.getAllContexts();
     }
 }

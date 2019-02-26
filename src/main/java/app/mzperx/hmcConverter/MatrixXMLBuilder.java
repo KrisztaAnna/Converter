@@ -1,6 +1,8 @@
 package app.mzperx.hmcConverter;
 
+import app.mzperx.hmcConverter.dao.implementation.memory.EdgeDaoMem;
 import app.mzperx.hmcConverter.dao.implementation.memory.NodeDaoMem;
+import app.mzperx.hmcConverter.hmcgraph.Edge;
 import app.mzperx.hmcConverter.hmcgraph.Graph;
 import app.mzperx.hmcConverter.hmcgraph.Node;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ public class MatrixXMLBuilder {
     private static final Logger logger = LoggerFactory.getLogger(MatrixXMLBuilder.class);
     private Graph graph;
     private NodeDaoMem nodeDaoMem = NodeDaoMem.getInstance();
+    private EdgeDaoMem edgeDaoMem = EdgeDaoMem.getInstance();
 
     private String header =
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
@@ -36,10 +39,19 @@ public class MatrixXMLBuilder {
         return nodesString;
     }
 
+    private String edgeToString(){
+        String edgesString = "";
+        List<Edge> allEdges = edgeDaoMem.getAllEdges();
+        for(Edge edge : allEdges){
+            edgesString += edge.toString();
+        }
+        return edgesString;
+    }
+
     public String buildGraph(){
         logger.info("Building the matrix...");
         graph = new Graph();
-        return header + graph.openingToString() + nodesToString() + graph.closingToString() + footer;
+        return header + graph.openingToString() + nodesToString() + edgeToString() + graph.closingToString() + footer;
     }
 
 }

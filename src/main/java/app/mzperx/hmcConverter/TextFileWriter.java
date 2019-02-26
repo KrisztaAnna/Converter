@@ -22,11 +22,11 @@ public class TextFileWriter {
         // write the content in file
         if (listOfContexts!=null) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.outputLocation))) {
-                logger.info("Writing output file...");
+                logger.info("Writing txt file...");
                 for (ArchEdContext context : listOfContexts) {
                     bufferedWriter.write(context.toString());
                 }
-                logger.info("Conversion finished. Output file can be found at the following location: " + this.outputLocation + "\n");
+                logger.info("Writing finished. Txt output can be found at the following location: " + this.outputLocation);
             } catch (IOException e) {
                 logger.error(e.getMessage(), e);
                 e.printStackTrace();

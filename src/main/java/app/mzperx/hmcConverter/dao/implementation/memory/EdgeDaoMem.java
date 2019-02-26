@@ -2,6 +2,7 @@ package app.mzperx.hmcConverter.dao.implementation.memory;
 
 import app.mzperx.hmcConverter.dao.EdgeDao;
 import app.mzperx.hmcConverter.hmcgraph.Edge;
+import app.mzperx.hmcConverter.hmcgraph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -22,6 +23,29 @@ public class EdgeDaoMem implements EdgeDao {
         }
         return instance;
     }
+
+    public boolean doesContemporaryEdgeExist(Node source, Node target){
+        if (source.getId().equals(target.getId())) {
+            return true;
+        }
+        for (Edge e : getAllEdges()) {
+            String s = e.getSource().getId();
+            String t = e.getTarget().getId();
+
+            if(    (s.equals(source.getId()) ||
+                    s.equals(target.getId())) &&
+                    (t.equals(source.getId()) ||
+                    t.equals(target.getId()))) {
+                return true;
+            }
+        }return false;
+
+    }
+
+
+
+
+
 
     @Override
     public  List<Edge> getAllEdges(){

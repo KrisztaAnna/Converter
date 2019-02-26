@@ -19,11 +19,13 @@ public class HmcNode {
     private String x = "0.0";
     private String y = "0.0";
     private String xmlns = "";
+    private ArchEdContext archedContext;
 
     public HmcNode(ArchEdContext context){
         this.index = allContexts.indexOf(context);
         this.name = context.getDescription();
         this.id = context.getName();
+        this.archedContext = context;
         if(context.getEqualTo().size()>0) {
             this.description = "Context equals to: ";
             for (ArchEdContext c : context.getEqualTo()) {
@@ -34,6 +36,9 @@ public class HmcNode {
 
     public String getId(){
         return  this.id;
+    }
+    public ArchEdContext getArchEdContext(){
+        return this.archedContext;
     }
 
     public String toString(){

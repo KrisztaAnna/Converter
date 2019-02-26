@@ -22,7 +22,9 @@ public class Graph {
         this.parseNodes = nodeDaoMem.getAllNodes().size();
     }
 
-    private void setParseEdges(){ }
+    private void setParseEdges(){
+
+    }
 
     public String openingToString() {
         return "\n  <graph edgedefault=\"" + this.edgedefault + "\" " +

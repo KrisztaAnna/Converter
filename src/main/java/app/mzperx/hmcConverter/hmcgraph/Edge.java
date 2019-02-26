@@ -9,7 +9,7 @@ public class Edge {
     private String id;
     private Node source;
     private Node target;
-    private String data = "key=\"d2\"";
+    private String data = "key=\"d2\">";
     private HmcEdge hmcEdge;
 
     public Edge(Node source, Node target, HmcEdge hmcEdge){
@@ -26,12 +26,23 @@ public class Edge {
         return this.id;
     }
 
+
+    public Node getSource(){
+        return this.source;
+    }
+
+    public Node getTarget(){
+        return this.target;
+    }
+
+
+
     public String toString(){
         return
-                "\n    <edge id=\"" + this.id + "\" source=\"" + this.source.getId() + "\" target=\"" + this.target.getId()  + "\">\n" +
-                        "      <data " + this.data + "\n" +
-                                this.hmcEdge.toString() + "\n" +
-                        "      </data>\n" +
-                        "    </edge>";
+                        "\n\t\t<edge id=\"" + this.id + "\" source=\"" + this.source.getId() + "\" target=\"" + this.target.getId()  + "\">\n" +
+                        "\t\t\t<data " + this.data +
+                              this.hmcEdge.toString()+ "\n" +
+                        "\t\t\t</data>" + "\n" +
+                        "\t\t</edge>";
     }
 }
